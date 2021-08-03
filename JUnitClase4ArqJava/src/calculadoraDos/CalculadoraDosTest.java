@@ -38,20 +38,52 @@ public class CalculadoraDosTest {
 		calc.clear();
 	}
 
-	//codigo que se ejecuta una unica vez al final de la clase
+	// codigo que se ejecuta una unica vez al final de la clase
 	@AfterClass
-	public static void afterClass() {//este metodo debe ser static para que se ejecute correctamente 
+	public static void afterClass() {// este metodo debe ser static para que se ejecute correctamente
 		System.out.println(" AfterClass()");
 		calc.clear();
 	}
-	
-	
+
 	@Test
 	public void testSum() {
 		System.out.println("        Ejecutando Test: TestSum() ");
 		int result = calc.add(3, 2);
 		int esperado = 5;
 		assertEquals(esperado, result);
+	}
+
+	@Test
+	public void testAnsSum() {
+		System.out.println("        Ejecutando Test: TestAnsSum() ");
+		int result = calc.add(5);
+		int esperado = 5;
+		assertEquals(esperado, result);
+	}
+
+	@Test
+	public void testDiv() {
+		System.out.println("        Ejecutando Test: TestAnsSum() ");
+		int result = calc.div(6, 2);
+		assertEquals(3, result);
+	}
+
+	// esta prueba funcionara por que se espera un error con el expected
+	// un expected siempre va a fallar si no se gerena la Exception que se le indica
+	@Test(expected = ArithmeticException.class)
+	public void testDivPorCero() {
+		System.out.println("        Ejecutando Test: TestDivPorCero() ");
+		// forzamos que el metodo lanze la exception al intentar dividir por cero
+		int result = calc.div(5, 0);
+	}
+
+	// timeout nos sirve para testear un metodo que tarda mas de lo normal en su
+	// ejecucion
+	@Test(timeout = 2500)
+	public void testAlgoritmoOptimo() {
+		System.out.println("        Ejecutando Test: testAlgoritmoOptimo() ");
+		calc.operacionOptima();
+
 	}
 
 }
